@@ -1,0 +1,15 @@
+setup:
+  addons: 
+    - plan: heroku-redis
+      as: REDIS
+    - plan: heroku-postgres
+      as: POSTGRES
+  config: 
+    APP_NAME: immense-plateau-83482
+build:
+  docker: 
+    web: Dockerfile
+  config:
+    NODE_ENV: production
+run: 
+  web: npm start
