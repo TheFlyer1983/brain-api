@@ -3,9 +3,9 @@ setup:
     - plan: heroku-redis
       as: REDIS
     - plan: heroku-postgres
-      as: POSTGRES
+      as: DATABASE
   config: 
-    APP_NAME: immense-plateau-83482
+    APP_NAME: brain-api-pl
 build:
   docker: 
     web: Dockerfile

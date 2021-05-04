@@ -9,9 +9,11 @@ services:
       - '3000:3000'
     volumes:
       - ./:/usr/src/smart-brain-api
+    # env_file:
+    #   - ./.env
     environment:
-      POSTGRES_URI: postgres://Paul:L1ngbeck@postgres:5432/smart-brain-docker
-      REDIS_URI: redis://redis:6379
+      POSTGRES_URI: ${DATABASE_URL}
+      REDIS_URI: ${REDIS_URL}
 
   # Postgress
   postgres:
@@ -19,12 +21,12 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: Paul
-      POSTGRES_PASSWORD: L1ngbeck
-      POSTGRES_DB: smart-brain-docker
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
 
   # Redis
   redis:
     image: redis
-    ports: 
+    ports:
       - '6379:6379'
