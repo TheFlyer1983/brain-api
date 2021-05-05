@@ -24,7 +24,9 @@ const db = knex({
 //App Declaration
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: `http://localhost:3001`,
+}));
 app.use(morgan('combined'));
 //End Points
 app.get('/', (req, res) => {
