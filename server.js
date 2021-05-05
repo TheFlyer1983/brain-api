@@ -17,13 +17,18 @@ const db = knex({
   client: 'pg',
   connection: {
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.REJECT_UNAUTHORIZED
+    ssl: process.env.REJECT_UNAUTHORIZED,
   },
 });
+
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
+};
 //App Declaration
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan('combined'));
 //End Points
 app.get('/', (req, res) => {
@@ -46,5 +51,5 @@ app.post('/imageurl', auth.requireAuth, (req, res) => {
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`App is Running on Port ${process.env.PORT || 3000}`);
-  console.log(process.env.REJECT_UNAUTHORIZED)
+  console.log(process.env.REJECT_UNAUTHORIZED);
 });
