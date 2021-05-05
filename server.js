@@ -25,8 +25,7 @@ const db = knex({
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
-  origin: `http://localhost:3001`,
-  'Access-Control-Allow-Origin': '*'
+  origin: `*`,
 }));
 app.use(morgan('combined'));
 //End Points
