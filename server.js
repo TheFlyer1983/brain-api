@@ -47,4 +47,5 @@ app.post('/imageurl', auth.requireAuth, (req, res) => {
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`App is Running on Port ${process.env.PORT || 3000}`);
+  console.log(process.env.REQURE_SSL)
 });
