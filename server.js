@@ -17,8 +17,7 @@ const db = knex({
   client: 'pg',
   connection: {
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.SSL_REQUIRE,
-    rejectUnauthorized: false,
+    ssl: { rejectUnauthorized: process.env.REJECT_UNAUTHORIZED },
   },
 });
 //App Declaration
