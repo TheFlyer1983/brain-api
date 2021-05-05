@@ -15,18 +15,13 @@ const auth = require('./controllers/authorization');
 //DB Connection
 const db = knex({
   client: 'pg',
-  connection: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.REJECT_UNAUTHORIZED,
-  },
+  connection: process.env.DATABASE_URL,
 });
 
 //App Declaration
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({
-  origin: `*`,
-}));
+app.use(cors());
 app.use(morgan('combined'));
 //End Points
 app.get('/', (req, res) => {
