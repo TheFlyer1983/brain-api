@@ -11,10 +11,14 @@ const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const auth = require('./controllers/authorization');
+
 //DB Connection
 const db = knex({
   client: 'pg',
-  connection: process.env.DATABASE_URL,
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.SSL_REQUIRE,
+  },
 });
 //App Declaration
 const app = express();
