@@ -17,7 +17,7 @@ const db = knex({
   client: 'pg',
   connection: {
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: process.env.REJECT_UNAUTHORIZED },
+    ssl: process.env.REJECT_UNAUTHORIZED
   },
 });
 //App Declaration
@@ -46,4 +46,5 @@ app.post('/imageurl', auth.requireAuth, (req, res) => {
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`App is Running on Port ${process.env.PORT || 3000}`);
+  console.log(process.env.REJECT_UNAUTHORIZED)
 });
