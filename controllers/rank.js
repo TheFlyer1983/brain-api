@@ -6,7 +6,7 @@ const getRank = async (req, res) => {
   try {
     const response = await fetch(`${apiConfig.rank}${endpoints.rank}?rank=${entries}`);
     const result = await response.json(response);
-    return await res.json(result);
+    return await res.json(result.input);
   } catch (error) {
     return await res.status(400).json(error);
   }
