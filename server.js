@@ -9,16 +9,14 @@ const morgan = require('morgan');
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
+const rank = require('./controllers/rank');
 const image = require('./controllers/image');
 const auth = require('./controllers/authorization');
 
 //DB Connection
 const db = knex({
   client: 'pg',
-  connection: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.REQURE_SSL
-  }
+  connection: process.env.DATABASE_URL,
 });
 
 //App Declaration
@@ -37,6 +35,9 @@ app.get('/profile/:id', auth.requireAuth, (req, res) => {
 });
 app.post('/profile/:id', auth.requireAuth, (req, res) => {
   profile.handleProfileUpdate(req, res, db);
+});
+app.post('/rank', auth.requireAuth, (req, res) => {
+  rank.getRank(req, res);
 });
 app.put('/image', auth.requireAuth, (req, res) => {
   image.handleImage(req, res, db);
