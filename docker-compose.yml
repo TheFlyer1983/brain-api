@@ -15,6 +15,7 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       REDIS_URL: ${REDIS_URL}
       RANK_API: ${RANK_API}
+      CLARIFAI_API_KEY: ${CLARIFAI_API_KEY}
 
   # Postgress
   postgres:

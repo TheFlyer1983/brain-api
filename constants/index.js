@@ -1,3 +1,3 @@
-const { apiConfig, endpoints } = require('./apiConfig');
+const { apiConfig, endpoints, apiKeys } = require('./apiConfig');
 
-module.exports = { apiConfig, endpoints };
+module.exports = { apiConfig, endpoints, apiKeys };

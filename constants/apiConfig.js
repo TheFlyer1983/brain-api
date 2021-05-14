@@ -6,7 +6,12 @@ const endpoints = {
   rank: '/rank'
 }
 
+const apiKeys = {
+  clarifai: process.env.CLARIFAI_API_KEY
+}
+
 module.exports = {
   apiConfig,
-  endpoints
+  endpoints,
+  apiKeys,
 }
