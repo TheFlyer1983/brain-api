@@ -1,0 +1,546 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Brain API",
+    "version": "v1"
+  },
+  "externalDocs": {
+    "description": "Find more info here",
+    "url": "/swagger.json"
+  },
+  "paths": {
+    "/image": {
+      "put": {
+        "tags": [
+          "Image"
+        ],
+        "summary": "Updates the number of entries",
+        "description": "This operation updates and returns the number of images that have been submitted",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageEntriesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/ImageEntriesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/imageurl": {
+      "post": {
+        "tags": [
+          "Image"
+        ],
+        "summary": "Send image url for recognition",
+        "description": "This operation allows a user to send a image for facial recognition",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageURLRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/ImageURLResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get the user data from the ID",
+        "description": "This operation returns the user data",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "$ref": "#/components/schemas/Unauthorised"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update the user data from the ID",
+        "description": "This operation updates the user data",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "$ref": "#/components/schemas/Unauthorised"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rank": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Returns a users ranking",
+        "description": "This operation returns a users rank",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RankRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/RankResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Allows a user to register",
+        "description": "This operation allows a new user to register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/RegisterResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signin": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Allows the user to signin with credentials",
+        "description": "This operation allows the user to signin with their credentials",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/SignInResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BoundingBox": {
+        "type": "object",
+        "properties": {
+          "top_row": {
+            "type": "number",
+            "format": "float"
+          },
+          "left_col": {
+            "type": "number",
+            "format": "float"
+          },
+          "bottom_row": {
+            "type": "number",
+            "format": "float"
+          },
+          "right_col": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "Concepts": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number",
+            "format": "float"
+          },
+          "app_id": {
+            "type": "string"
+          }
+        }
+      },
+      "FormInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer"
+          },
+          "pet": {
+            "type": "string"
+          }
+        }
+      },
+      "ImageEntriesRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        }
+      },
+      "ImageEntriesResponse": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "integer"
+          }
+        }
+      },
+      "ImageURLRequest": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          }
+        }
+      },
+      "ImageURLResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Regions"
+        }
+      },
+      "RankRequest": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "integer"
+          }
+        }
+      },
+      "RankResponse": {
+        "type": "string"
+      },
+      "Regions": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "region_info": {
+            "type": "object",
+            "$ref": "#/components/schemas/RegionInfo"
+          },
+          "data": {
+            "type": "object",
+            "$ref": "#/components/schemas/RegionData"
+          },
+          "value": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "RegionData": {
+        "type": "object",
+        "properties": {
+          "concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Concepts"
+            }
+          }
+        }
+      },
+      "RegionInfo": {
+        "type": "object",
+        "properties": {
+          "bounding-box": {
+            "type": "object",
+            "$ref": "#/components/schemas/BoundingBox"
+          }
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "entries": {
+            "type": "string"
+          },
+          "joined": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SignInRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          }
+        }
+      },
+      "SignInResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "Success": {
+        "type": "string",
+        "description": "Action completed successfully",
+        "example": "Success"
+      },
+      "Unauthorised": {
+        "type": "string",
+        "description": "Access token is missing or invalid",
+        "example": "Unauthorised"
+      },
+      "UpdateUser": {
+        "type": "object",
+        "properties": {
+          "formInput": {
+            "type": "object",
+            "$ref": "#/components/schemas/FormInput"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "entries": {
+            "type": "string"
+          },
+          "joined": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Authorisation": {
+        "type": "apiKey",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Standard Authorization header using JWT.",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Image",
+      "description": "Operations to work with Images"
+    },
+    {
+      "name": "Users",
+      "description": "Operations to work with Users"
+    }
+  ]
+}

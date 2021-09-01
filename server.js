@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
 const morgan = require('morgan');
+const swaggerUI = require('swagger-ui-express');
+
 //Controllers
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
@@ -13,16 +15,22 @@ const rank = require('./controllers/rank');
 const image = require('./controllers/image');
 const auth = require('./controllers/authorization');
 
+//Swagger Config
+const swaggerDocument = require('./swagger.json');
+
 //DB Connection
 const db = knex({
   client: 'pg',
   connection: process.env.DATABASE_URL,
 });
+
 //App Declaration
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('combined'));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 //End Points
 app.get('/', (req, res) => {
   res.send('It is working!');
@@ -44,6 +52,9 @@ app.put('/image', auth.requireAuth, (req, res) => {
 app.post('/imageurl', auth.requireAuth, (req, res) => {
   image.handleApiCall(req, res);
 });
+app.get('/swagger.json', (req, res) => {
+  res.send(swaggerDocument);
+})
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`App is Running on Port ${process.env.PORT || 3000}`);
