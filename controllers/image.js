@@ -10,7 +10,7 @@ const handleApiCall = (req, res) => {
   app.models
     .predict(Clarifai.FACE_DETECT_MODEL, input)
     .then((data) => {
-      res.json(data);
+      res.json(data.outputs[0].data.regions);
     })
     .catch((err) => res.status(400).json('Unable to work with API'));
 };
@@ -22,7 +22,7 @@ const handleImage = (req, res, db) => {
     .increment('entries', 1)
     .returning('entries')
     .then((entries) => {
-      res.json(entries[0]);
+      res.json({ entries: Number(entries[0]) });
     })
     .catch((err) => res.status(400).json('Unable to get entries'));
 };
