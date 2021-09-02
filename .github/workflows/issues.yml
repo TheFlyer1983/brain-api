@@ -3,7 +3,7 @@ on:
   issues:
     types:
       - opened
-
+  
 jobs:
   label_issues:
     runs-on: ubuntu-latest
@@ -23,5 +23,6 @@ jobs:
        uses: srggrs/assign-one-project-github-action@1.2.1
        if: github.event.action == 'opened'
        with:
+        MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN}}
         project: https://github.com/users/TheFlyer1983/projects/1
         column_name: "Backlog"
