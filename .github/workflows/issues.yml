@@ -1,0 +1,31 @@
+name: Add and Label Issues
+on: 
+  issues:
+    types:
+      - opened
+
+jobs:
+  label_issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Label issues
+        uses: andymckay/labeler@5c59dabdfd4dd5bd9c6e6d255b01b9d764af4414
+        with:
+          add-labels: "backend"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  add_issues:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Add issue to project board
+       uses: actions/github-script@0.8.0
+       with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.projects.createCard({
+            column_id: 14192404,
+            content_id: content.payload.issue.id,
+            content_type: "Issue"
+          });
