@@ -20,12 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - name: Add issue to project board
-       uses: actions/github-script@0.8.0
+       uses: srggrs/assign-one-project-github-action@1.2.1
+       if: github.event.action == 'opened'
        with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          github.projects.createCard({
-            column_id: 14192404,
-            content_id: context.payload.issue.id,
-            content_type: "Issue"
-          });
+        project: https://github.com/users/TheFlyer1983/projects/1
+        column_name: "Backlog"
