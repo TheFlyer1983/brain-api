@@ -17,13 +17,3 @@ jobs:
         with:
           add-labels: 'backend'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-  add_issues:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Assign to One Project
-        uses: srggrs/assign-one-project-github-action@1.2.1
-        if: github.event.action == 'opened'
-        with:
-          project: https://github.com/users/TheFlyer1983/projects/1
-          column_name: 'Backlog'
