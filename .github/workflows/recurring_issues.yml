@@ -13,7 +13,7 @@ jobs:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%m-%Y')"
-      - name: Create Montly Maintenance Audit Issue
+      - name: Create Monthly Maintenance Audit Issue
         uses: imjohnbo/issue-bot@v3.3.4
         with:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
@@ -26,6 +26,6 @@ jobs:
 
             - Update any outdated packages
             - Audit current packages for vulnerabilities
-            - Update any dependancies with vulerabilities (where possible)
+            - Update any dependancies with vulnerabilities (where possible)
           pinned: true
           close-previous: true
