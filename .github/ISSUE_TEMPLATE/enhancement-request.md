@@ -8,6 +8,7 @@ assignees: ''
 ---
 
 **Description:**
+
 A clear and concise description of what you want to happen.
 
 **Acceptance Criteria:**
@@ -15,4 +16,5 @@ A clear and concise description of what you want to happen.
 - that describe how the feature works
 
 **Out of Scope**
+
 Anything that should not be affected or changed as part of this issue
