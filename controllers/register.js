@@ -50,12 +50,12 @@ const registerAuthentication = (db, bcrypt) => async (req, res) => {
   const details = { email, name, password }
 
   try {
-    const data = await handleRegister(db, bcrypt, details);
+    const register = await handleRegister(db, bcrypt, details);
     
-    const session = await createSessions(data.user);
+    const session = await createSessions(register.user);
 
     const response = {
-      data,
+      register,
       session
     }
 
