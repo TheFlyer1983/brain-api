@@ -1,0 +1,15 @@
+{
+  "environments": {
+    "review": {
+      "addons": [
+        {
+          "plan": "heroku-postgresql:hobby-dev",
+          "as": "DATABASE"
+        },
+        {
+          "plan": "heroku-redis:hobby-dev"
+        }
+      ]
+    }
+  }
+}

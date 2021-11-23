@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
   res.send('It is working!');
 });
 app.post('/signin', signin.signinAuthentication(db, bcrypt));
-app.post('/register', register.handleRegister(db, bcrypt));
+app.post('/register', register.registerAuthentication(db, bcrypt));
 app.get('/profile/:id', auth.requireAuth, (req, res) => {
   profile.handleProfileGet(req, res, db);
 });

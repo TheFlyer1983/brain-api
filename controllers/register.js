@@ -1,37 +1,73 @@
-const handleRegister = (db, bcrypt) => (req, res) => {
-  const { email, name, password } = req.body;
+const sessionFunctions = require('../functions/sessionFunctions')
+
+const handleRegister = async (db, bcrypt, details) => {
+  const { email, name, password } = details;
   if (!email || !name || !password) {
-    return res.status(400).json('Incorrect Form Submission');
+    return Promise.reject({ response: 'Unable to register', error: 'Incorrect Form Submission'});
   }
   const hash = bcrypt.hashSync(password);
-  db.transaction((trx) => {
-    trx
-      .insert({
-        hash: hash,
-        email: email,
-      })
-      .into('login')
-      .returning('email')
-      .then((loginEmail) => {
-        return trx('users')
-          .returning('*')
-          .insert({
-            email: loginEmail[0],
-            name: name,
-            joined: new Date(),
-          })
-          .then((user) => {
-            res.json(user[0]);
-          });
-      })
-      .then(trx.commit)
-      .catch(trx.rollback);
-  }).catch((err) => {
-    console.log(err);
-    return res.status(400).json('Unable to Register');
-  });
+  try {
+    const result = await db.transaction(async (trx) => {
+      try {
+        const loginEmail = await trx.insert({
+          hash: hash,
+          email: email,
+        }).into('login').returning('email');
+
+        const user = await trx('users').returning('*').insert({
+          email: loginEmail[0],
+          name,
+          joined: new Date(),
+        });
+
+        trx.commit;
+        return { response: 'Success', user: user[0] };
+      } catch (error) {
+        trx.rollback;
+        return Promise.reject({ response: 'Unable to register', error: `${error.detail} (Table - ${error.table})` });
+      }
+    })
+
+    return (result)
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+const createSessions = async (user) => {
+  try {
+    const { email, id } = user;
+    const token = sessionFunctions.signToken(email);
+    await sessionFunctions.setToken(token, id)
+    return { success: 'true', userId: id, token }
+  } catch (error) {
+    console.log
+  }
 };
 
+const registerAuthentication = (db, bcrypt) => async (req, res) => {
+  const { email, name, password } = req.body;
+  const details = { email, name, password }
+
+  try {
+    const register = await handleRegister(db, bcrypt, details);
+    
+    const session = await createSessions(register.user);
+
+    const response = {
+      register,
+      session
+    }
+
+    return await res.status(200).json(response)
+  } catch (error) {
+    return await res.status(400).json(error);
+  }
+  
+}
+
+
+
 module.exports = {
-  handleRegister: handleRegister,
+  registerAuthentication
 };
