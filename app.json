@@ -1,6 +1,7 @@
 {
   "environments": {
     "review": {
+      "stack": "container",
       "addons": [
         {
           "plan": "heroku-postgresql:hobby-dev",
