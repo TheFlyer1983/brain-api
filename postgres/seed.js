@@ -3,8 +3,6 @@ const connectionString = process.env.DATABASE_URL;
 
 const client = new pg.Client(connectionString);
 
-
-
 client.connect();
 client.query(`
 CREATE TABLE IF NOT EXISTS users (
@@ -18,8 +16,10 @@ CREATE TABLE IF NOT EXISTS users (
   if (err) {
     return console.error('Error with PostgreSQL Database', err);
   }
+  client.end();
 });
 
+client.connect();
 client.query(`
 CREATE TABLE IF NOT EXISTS login (
   id serial PRIMARY KEY,
@@ -30,6 +30,6 @@ CREATE TABLE IF NOT EXISTS login (
   if (err) {
     return console.error('Error with PostgreSQL Database', err);
   }
+  client.end();
 });
 
-client.end();
