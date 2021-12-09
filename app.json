@@ -12,7 +12,7 @@
         }
       ],
       "scripts": {
-        "postdeploy": "node postgres/seed.js"
+        "postdeploy": "node ./postgres/seed.js"
       }
     }
   }
