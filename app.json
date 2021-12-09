@@ -9,7 +9,10 @@
         {
           "plan": "heroku-redis:hobby-dev"
         }
-      ]
+      ],
+      "scripts": {
+        "postdeploy": "node ./postgres/seed.js"
+      }
     }
   }
 }
