@@ -1,7 +1,6 @@
 {
   "environments": {
     "review": {
-      "stack": "container",
       "addons": [
         {
           "plan": "heroku-postgresql:hobby-dev",
@@ -10,7 +9,10 @@
         {
           "plan": "heroku-redis:hobby-dev"
         }
-      ]
+      ],
+      "scripts": {
+        "postdeploy": "node ./postgres/seed.js"
+      }
     }
   }
 }
