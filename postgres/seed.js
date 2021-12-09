@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS users (
   if (err) {
     return console.error('Error with PostgreSQL Database', err);
   }
-  client.end();
 });
 
 client.query(`
@@ -31,5 +30,6 @@ CREATE TABLE IF NOT EXISTS login (
   if (err) {
     return console.error('Error with PostgreSQL Database', err);
   }
-  client.end();
 });
+
+client.end();
