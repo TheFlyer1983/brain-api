@@ -1,9 +1,10 @@
 const pg = require('pg');
 const connectionString = process.env.DATABASE_URL;
-
+console.log('Seed script running');
+console.log(process.env.DATABASE_URL);
 const client = new pg.Client(connectionString);
 
-console.log('Seed script running');
+
 
 client.connect();
 client.query(`
