@@ -12,30 +12,21 @@ CREATE TABLE IF NOT EXISTS users (
   entries BIGINT DEFAULT 0,
   joined TIMESTAMP NOT NULL
 )
-
-CREATE TABLE IF NOT EXISTS login (
-  id serial PRIMARY KEY,
-  hash VARCHAR(100) NOT NULL,
-  email text UNIQUE NOT NULL
-)
 `, (err, res) => {
   if (err) {
     return console.error('Error with PostgreSQL Database', err);
   }
-  client.end();
+  client.query(`
+    CREATE TABLE IF NOT EXISTS login (
+      id serial PRIMARY KEY,
+      hash VARCHAR(100) NOT NULL,
+      email text UNIQUE NOT NULL
+    )
+  `, (err, res) => {
+    if (err) {
+      return console.error('Error with PostgreSQL Database', err);
+    }
+    client.end();
+  });
 });
-
-// client.connect();
-// client.query(`
-// CREATE TABLE IF NOT EXISTS login (
-//   id serial PRIMARY KEY,
-//   hash VARCHAR(100) NOT NULL,
-//   email text UNIQUE NOT NULL
-// )
-// `, (err, res) => {
-//   if (err) {
-//     return console.error('Error with PostgreSQL Database', err);
-//   }
-//   client.end();
-// });
 
