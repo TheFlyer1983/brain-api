@@ -81,6 +81,33 @@
         }
       }
     },
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all the users from the DB",
+        "description": "This operation returns all registered users",
+        "security": [
+          {
+            "Authorisation": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/profile/{id}": {
       "get": {
         "tags": [
@@ -500,6 +527,13 @@
           }
         }
       },
+      "Users": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#/components/schemas/User"
+        }
+      },
       "User": {
         "type": "object",
         "properties": {
@@ -525,7 +559,7 @@
     "securitySchemes": {
       "Authorisation": {
         "type": "apiKey",
-        "scheme": "bearer",
+        "scheme": "apiKey",
         "bearerFormat": "JWT",
         "description": "Standard Authorization header using JWT.",
         "name": "Authorization",
