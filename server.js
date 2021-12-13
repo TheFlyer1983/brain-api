@@ -14,6 +14,7 @@ const profile = require('./controllers/profile');
 const rank = require('./controllers/rank');
 const image = require('./controllers/image');
 const auth = require('./controllers/authorization');
+const users = require('./controllers/users');
 
 //Swagger Config
 const swaggerDocument = require('./swagger.json');
@@ -37,6 +38,9 @@ app.get('/', (req, res) => {
 });
 app.post('/signin', signin.signinAuthentication(db, bcrypt));
 app.post('/register', register.registerAuthentication(db, bcrypt));
+app.get('/users', auth.requireAuth, (req, res) => {
+  users.getAllUsers(req, res, db);
+})
 app.get('/profile/:id', auth.requireAuth, (req, res) => {
   profile.handleProfileGet(req, res, db);
 });
@@ -54,7 +58,8 @@ app.post('/imageurl', auth.requireAuth, (req, res) => {
 });
 app.get('/swagger.json', (req, res) => {
   res.send(swaggerDocument);
-})
+});
+
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`App is Running on Port ${process.env.PORT || 3000}`);
