@@ -31,6 +31,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('combined'));
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.disable('x-powered-by');
 
 //End Points
 app.get('/', (req, res) => {
