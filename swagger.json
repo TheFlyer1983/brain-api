@@ -308,6 +308,64 @@
           }
         }
       }
+    },
+    "/user/{id}": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deletes a specific user from the DB.",
+        "description": "This operation deletes a specific user from the Database","parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Failure"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "$ref": "#/components/schemas/Unauthorised"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -507,6 +565,18 @@
             "type": "string"
           }
         }
+      },
+      "Failure": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Bad Request"
       },
       "Success": {
         "type": "string",

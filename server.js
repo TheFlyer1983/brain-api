@@ -48,6 +48,9 @@ app.get('/profile/:id', auth.requireAuth, (req, res) => {
 app.post('/profile/:id', auth.requireAuth, (req, res) => {
   profile.handleProfileUpdate(req, res, db);
 });
+app.delete('/user/:id', auth.requireAuth, (req, res) => {
+  users.deleteUser(req, res, db);
+}),
 app.post('/rank', auth.requireAuth, (req, res) => {
   rank.getRank(req, res);
 });
